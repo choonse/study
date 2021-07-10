@@ -18,3 +18,4 @@ console.log(dataJSON)
 
 const data = JSON.parse(dataJSON)
 console.log(data.title)
+console.log(data.author)
