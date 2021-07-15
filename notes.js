@@ -1,20 +1,16 @@
 const { notEqual } = require('assert')
 const fs = require('fs')
 const chalk = require('chalk')
-const getNotes = () => {
-    return 'Your Notes...'
-}
-
 
 const addNote = (title, body) => {
     const notes = loadNotes()
-    const duplicateNotes = notes.filter((note)=>{
-        return note.title === title
-    })
+    //const duplicateNotes = notes.filter((note)=>{ note.title === title })
+
+    const duplicateNote = notes.find((note)=>note.title===title)
 
     console.log(duplicateNotes)
 
-    if(duplicateNotes.length === 0){
+    if(!duplicateNote){
         notes.push({
             title:title,
             body:body
@@ -72,10 +68,34 @@ const removeNote = (title) => {
     }
 }
 
+const readNote= (title) => {
+    const notes = loadNotes()
+    console.log(notes)
+    const note = notes.find((note)=> note.title===title)
+    console.log(note)
+    if(note){
+        console.log(note.title, note.body)
+    }else{
+        console.log('Note not found')
+    }
+
+}
+
+const listNotes = () => {
+    
+    const notes = loadNotes()
+
+    console.log(chalk.inverse('Your notes'))
+
+    notes.forEach((note)=>{
+        console.log(note.title)
+    })
+
+}
 
 module.exports = {
-    getNotes: getNotes,
     addNote: addNote,
-    removeNote: removeNote
-    
+    removeNote: removeNote,
+    listNotes:listNotes,   
+    readNote:readNote,
 }
